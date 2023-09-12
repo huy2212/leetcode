@@ -2,22 +2,29 @@ using System;
 using System.Collections.Generic;
 public class Solution
 {
-    public int MaxProfit(int[] prices)
+    public void Rotate(int[] nums, int k)
     {
-        int curProfit = 0, maxProfit = 0;
-        for (int i = 0; i < prices.Length - 1; i++)
+        if (k == 0 || nums.Length == 1 || nums.Length == k)
         {
-            if (prices[i + 1] - prices[i] > 0)
-            {
-                curProfit += prices[i + 1] - prices[i];
-            }
-            else
-            {
-                maxProfit += curProfit;
-                curProfit = 0;
-            }
+            return;
         }
-        maxProfit += curProfit;
-        return maxProfit;
+
+        k = k % nums.Length;
+
+        Reverse(nums, 0, nums.Length - 1);
+        Reverse(nums, k, nums.Length - 1);
+        Reverse(nums, 0, k - 1);
+    }
+
+    public void Reverse(int[] arr, int start, int end)
+    {
+        while (start < end)
+        {
+            int tmp = arr[start];
+            arr[start] = arr[end];
+            arr[end] = tmp;
+            start++;
+            end--;
+        }
     }
 }
